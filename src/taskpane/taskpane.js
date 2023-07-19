@@ -15,15 +15,12 @@ Office.onReady((info) => {
 
 async function run() {
   return Excel.run(async (context) => {
-    /**
-     * Insert your Word code here
-     */
+    const range = context.workbook.getSelectedRange();
+    // Read the range address
+    range.load("address");
 
-    // insert a paragraph at the end of the document.
-    const paragraph = context.document.body.insertParagraph("Hello World12", Word.InsertLocation.end);
-
-    // change the paragraph color to blue.
-    paragraph.font.color = "blue";
+    // // Update the fill color
+    range.format.fill.color = "yellow";
 
     await context.sync();
   });
