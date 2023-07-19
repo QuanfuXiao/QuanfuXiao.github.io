@@ -13,7 +13,7 @@ Office.onReady((info) => {
   }
 });
 
-export async function run() {
+async function run() {
   return Word.run(async (context) => {
     /**
      * Insert your Word code here
@@ -28,3 +28,5 @@ export async function run() {
     await context.sync();
   });
 }
+
+module.exports = { run }
