@@ -6,7 +6,7 @@
 /* global document, Office, Word */
 
 Office.onReady((info) => {
-  if (info.host === Office.HostType.Word) {
+  if (info.host === Office.HostType.Excel) {
     document.getElementById("sideload-msg").style.display = "none";
     document.getElementById("app-body").style.display = "flex";
     document.getElementById("run").onclick = run;
@@ -14,7 +14,7 @@ Office.onReady((info) => {
 });
 
 async function run() {
-  return Word.run(async (context) => {
+  return Excel.run(async (context) => {
     /**
      * Insert your Word code here
      */
