@@ -28,5 +28,3 @@ async function run() {
     await context.sync();
   });
 }
-
-module.exports = { run }
