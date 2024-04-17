@@ -25,7 +25,7 @@ Office.onReady((info) => {
   }
 });
 
-export async function runExcel() {
+async function runExcel() {
   try {
     await Excel.run(async (context) => {
       /**
@@ -47,7 +47,7 @@ export async function runExcel() {
   }
 }
 
-export async function runOutlook() {
+async function runOutlook() {
   /**
    * Insert your Outlook code here
    */
@@ -56,7 +56,7 @@ export async function runOutlook() {
   document.getElementById("item-subject").innerHTML = "<b>Subject:</b> <br/>" + item.subject;
 }
 
-export async function runWord() {
+async function runWord() {
   return Word.run(async (context) => {
     /**
      * Insert your Word code here
@@ -72,7 +72,7 @@ export async function runWord() {
   });
 }
 
-export async function runPowerPoint() {
+async function runPowerPoint() {
   /**
    * Insert your PowerPoint code here
    */
