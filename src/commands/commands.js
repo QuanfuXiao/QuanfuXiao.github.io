@@ -19,7 +19,31 @@ Office.onReady((info) => {
     // Register the function with Office.
     Office.actions.associate("action", actionWord);
   }
+
+  if (info.host !== Office.HostType.Outlook) {
+    Office.actions.associate("SHOWTASKPANE", showTaskpane);
+    Office.actions.associate("HIDETASKPANE", hideTaskpane);
+  }
 });
+
+async function showTaskpane() {
+  try {
+    await Office.addin.showAsTaskpane();
+  } catch (error) {
+    // Note: In a production add-in, notify the user through your add-in's UI.
+    console.error(error);
+  }
+}
+
+async function hideTaskpane() {
+  try {
+    await Office.addin.hide();
+  } catch (error) {
+    // Note: In a production add-in, notify the user through your add-in's UI.
+    console.error(error);
+  }
+}
+
 
 function actionOutlook(event) {
   const message = {
@@ -30,7 +54,10 @@ function actionOutlook(event) {
   };
 
   // Show a notification message.
-  Office.context.mailbox.item.notificationMessages.replaceAsync("ActionPerformanceNotification", message);
+  Office.context.mailbox.item.notificationMessages.replaceAsync(
+    "ActionPerformanceNotification",
+    message
+  );
 
   // Be sure to indicate when the add-in command function is complete.
   event.completed();
@@ -39,13 +66,13 @@ function actionOutlook(event) {
 async function actionExcel(event) {
   try {
     await Excel.run(async (context) => {
-        const range = context.workbook.getSelectedRange();
-        range.format.fill.color = "yellow";
-        await context.sync();
+      const range = context.workbook.getSelectedRange();
+      range.format.fill.color = "yellow";
+      await context.sync();
     });
   } catch (error) {
-      // Note: In a production add-in, notify the user through your add-in's UI.
-      console.error(error);
+    // Note: In a production add-in, notify the user through your add-in's UI.
+    console.error(error);
   }
 
   // Be sure to indicate when the add-in command function is complete
@@ -55,7 +82,10 @@ async function actionExcel(event) {
 async function actionWord(event) {
   try {
     await Word.run(async (context) => {
-      const paragraph = context.document.body.insertParagraph("Hello World", Word.InsertLocation.end);
+      const paragraph = context.document.body.insertParagraph(
+        "Hello World",
+        Word.InsertLocation.end
+      );
       paragraph.font.color = "blue";
       await context.sync();
     });
@@ -73,7 +103,10 @@ async function actionPowerPoint(event) {
     await PowerPoint.run(async (context) => {
       const options = { coercionType: Office.CoercionType.Text };
       await Office.context.document.setSelectedDataAsync(" ", options);
-      await Office.context.document.setSelectedDataAsync("Hello World!", options);
+      await Office.context.document.setSelectedDataAsync(
+        "Hello World!",
+        options
+      );
     });
   } catch (error) {
     // Note: In a production add-in, notify the user through your add-in's UI.
